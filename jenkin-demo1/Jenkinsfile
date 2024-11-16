@@ -1,29 +1,18 @@
-pipeline {
-    agent any
-    tools {  
-		maven 'mavenlocal'  // Name configured in Jenkins Global Tool Configuration
-        jdk 'jdklocal'     // Name configured in Jenkins Global Tool Configuration
+node {
+  stage("Clone the project") {
+    git branch: 'main', url: 'https://github.com/JasonkDaniel/jenkinspringboot.git'
+  }
+
+  stage("Compilation") {
+    sh "./mvnw clean install -DskipTests"
+  }
+
+  stage("Tests and Deployment") {
+    stage("Runing unit tests") {
+      sh "./mvnw test -Punit"
     }
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main', url: 'https://github.com/JasonkDaniel/jenkinspringboot.git'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
+    stage("Deployment") {
+      sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
     }
+  }
 }
