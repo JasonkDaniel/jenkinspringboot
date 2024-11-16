@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    tools {
-        maven 'mavenlocal'  // Name configured in Jenkins Global Tool Configuration
+    tools {  
+		maven 'mavenlocal'  // Name configured in Jenkins Global Tool Configuration
         jdk 'jdklocal'     // Name configured in Jenkins Global Tool Configuration
     }
     stages {
