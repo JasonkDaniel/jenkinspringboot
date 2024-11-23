@@ -1,8 +1,9 @@
 pipeline {
     agent any
 
-    stage("Clone the project") {
-    git branch: 'main', url: 'https://github.com/JasonkDaniel/jenkinspringboot.git'
+
+     stage("Clone the project") {
+    git branch: 'main', url: 'https://github.com/nkchauhan003/jenkins-demo.git'
   }
 
   stage("Compilation") {
@@ -17,5 +18,5 @@ pipeline {
       sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
     }
   }
-}
+   
 Toggle Scripted Pipeline (Advanced)
